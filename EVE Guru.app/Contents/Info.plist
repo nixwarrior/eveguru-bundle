@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- https://developer.apple.com/documentation/bundleresources/bundle-configuration#Categorization -->
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<!-- https://developer.apple.com/documentation/bundleresources/bundle-configuration#Identification -->
+	<key>CFBundleIdentifier</key>
+	<string>online.eveguru.app</string>
+	<key>CFBundleName</key>
+	<string>EVE Guru</string>
+	<key>CFBundleDisplayName</key>
+	<string>EVE Guru</string>
+	<!-- https://developer.apple.com/documentation/bundleresources/bundle-configuration#Bundle-version -->
+	<key>CFBundleVersion</key>
+	<string>0.0.1</string>
+	<!-- https://developer.apple.com/documentation/bundleresources/user-interface#Icons -->
+	<key>CFBundleIconFile</key>
+	<string>EVE Guru.icns</string>
+	<!-- https://developer.apple.com/documentation/bundleresources/app-execution#Launch -->
+	<key>CFBundleExecutable</key>
+	<string>launcher.sh</string>
+</dict>
+</plist>
