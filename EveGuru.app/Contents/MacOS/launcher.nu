@@ -60,43 +60,35 @@ def install [release_channel: string] {
   log debug $"Downloading ($url)"
   http get $url | save --force --progress $file
 
-  log debug "Installing to $RESOURCES_DIR"
+  log debug "Extracting"
   ^unzip -o $file -d $RESOURCES_DIR
 
   rm $file
 
-  log debug $"Installed version ($version)"
+  log info $"Installed version ($version)"
   {version: $version} | save --force $EVEGURU_VERSION
 }
 
 def main [] {
-  log debug $"BUNDLE_DIR=($BUNDLE_DIR)"
-  log debug $"RESOURCES_DIR=($RESOURCES_DIR)"
-  log debug $"EVEGURU_EXE=($EVEGURU_EXE)"
-  log debug $"EVEGURU_VERSION=($EVEGURU_VERSION)"
-  log debug $"RELEASE_URL=($RELEASE_URL)"
-  log debug $"RELEASE_CHANNEL=($RELEASE_CHANNEL)"
+  log debug $"WINEPREFIX=($env.WINEPREFIX)"
   log debug $"DATA_DIR=($DATA_DIR)"
-  log debug $"EVEGURU_CONFIG=($EVEGURU_CONFIG)"
 
-  log debug "Checking if the application is installed"
+  log info "Checking if the app is installed"
   if (is_installed) {
-    log debug "The application is installed because file $EVEGURU_EXE is found"
-    log debug "Checking for updates"
+    log info "Checking if there are updates"
     let release_channel = get_release_channel | default $RELEASE_CHANNEL.stable
     let release = http get $RELEASE_URL | get $release_channel
     let old_version = open $EVEGURU_VERSION | get version
     let new_version = $release.app.version
     if ($new_version > $old_version) {
-      log debug "A new version is available"
+      log info $"An update from ($old_version) to ($new_version) is available"
       install $release_channel
     }
   } else {
-    log debug "The application is not installed because file $EVEGURU_EXE is not found"
-    log debug "Installing the latest stable version of the application"
+    log info "Installing the latest stable version"
     install $RELEASE_CHANNEL.stable
   }
 
-  log debug "Launching the application"
+  log info "Launching"
   exec wine $EVEGURU_EXE -linux -macCrossover
 }
