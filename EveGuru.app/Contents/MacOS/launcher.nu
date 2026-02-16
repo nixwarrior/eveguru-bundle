@@ -8,25 +8,24 @@ $env.WINEPREFIX = $env.HOME + "/.wine-eveguru"
 
 const BUNDLE_DIR = path self | path dirname --num-levels 3
 const RESOURCES_DIR = $BUNDLE_DIR + "/Contents/Resources"
-
 const EVEGURU_EXE = $RESOURCES_DIR + "/EveGuru.exe"
-let EVEGURU_VERSION = $env.WINEPREFIX + "/drive_c/ProgramData/EveGuru/version.json"
+
+let PROGRAM_DATA_DIR = $env.WINEPREFIX + "/drive_c/ProgramData/EveGuru"
+let PROGRAM_DATA_CONFIG = $PROGRAM_DATA_DIR + "/EveGuru.config"
+let EVEGURU_VERSION = $PROGRAM_DATA_DIR + "/version.json"
+
+let DATA_DIR = get_data_directory | default ($BUNDLE_DIR + "/Contents/Data")
+let EVEGURU_CONFIG = $DATA_DIR + "/EveGuru.config"
 
 const RELEASE_URL = "https://app.eveguru.online/app/api/updateinfo"
 const RELEASE_CHANNEL = {stable: "latestStable", preview: "latestTest"}
 
-let DATA_DIR = get_data_dir | default ($RESOURCES_DIR + "/../Data")
-
-let EVEGURU_CONFIG = $DATA_DIR + "/EveGuru.config"
-
-def get_data_dir [] {
-  let config = $env.WINEPREFIX + "/drive_c/ProgramData/EveGuru/EveGuru.config"
-
-  if not ($config | path exists) {
-    return
+def get_data_directory [] {
+  if not ($PROGRAM_DATA_CONFIG | path exists) {
+    return null
   }
 
-  open $config
+  open $PROGRAM_DATA_CONFIG
     | from xml
     | xaccess [configuration appSettings add]
     | where attributes.key == "dataDirectory"
@@ -41,7 +40,7 @@ def is_installed [] {
 
 def get_release_channel [] {
   if not ($EVEGURU_CONFIG | path exists) {
-    return
+    return null
   }
 
   open $EVEGURU_CONFIG
@@ -49,7 +48,7 @@ def get_release_channel [] {
     | xaccess [configuration appUpdateSettings settings option]
     | where attributes.name == "enablePreviewUpdates"
     | get --optional attributes.check.0
-    | match $in { "true" => { $RELEASE_CHANNEL.preview } }
+    | if ($in == "true") { $RELEASE_CHANNEL.preview } else { null }
 }
 
 def install [release_channel: string] {
