@@ -10,7 +10,7 @@ const BUNDLE_DIR = path self | path dirname --num-levels 3
 const RESOURCES_DIR = $BUNDLE_DIR + "/Contents/Resources"
 
 const EVEGURU_EXE = $RESOURCES_DIR + "/EveGuru.exe"
-const EVEGURU_VERSION = $RESOURCES_DIR + "/version.json"
+let EVEGURU_VERSION = $env.WINEPREFIX + "/drive_c/ProgramData/EveGuru/version.json"
 
 const RELEASE_URL = "https://app.eveguru.online/app/api/updateinfo"
 const RELEASE_CHANNEL = {stable: "latestStable", preview: "latestTest"}
