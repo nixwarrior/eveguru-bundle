@@ -1,1 +1,1 @@
-# The [EVE Guru](https://eveguru.online/) .app bundle
+# The [EveGuru](https://eveguru.online/) .app bundle

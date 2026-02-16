@@ -1,3 +1,3 @@
 #!/bin/sh
 
-zip -r 'EVE Guru.zip' 'EVE Guru.app'
+zip -r EveGuru.zip EveGuru.app

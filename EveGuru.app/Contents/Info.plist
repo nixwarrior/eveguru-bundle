@@ -9,15 +9,15 @@
 	<key>CFBundleIdentifier</key>
 	<string>online.eveguru.app</string>
 	<key>CFBundleName</key>
-	<string>EVE Guru</string>
+	<string>EveGuru</string>
 	<key>CFBundleDisplayName</key>
-	<string>EVE Guru</string>
+	<string>EveGuru</string>
 	<!-- https://developer.apple.com/documentation/bundleresources/bundle-configuration#Bundle-version -->
 	<key>CFBundleVersion</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<!-- https://developer.apple.com/documentation/bundleresources/user-interface#Icons -->
 	<key>CFBundleIconFile</key>
-	<string>EVE Guru.icns</string>
+	<string>EveGuru.icns</string>
 	<!-- https://developer.apple.com/documentation/bundleresources/app-execution#Launch -->
 	<key>CFBundleExecutable</key>
 	<string>launcher.sh</string>
